@@ -1,0 +1,5 @@
+# Schema for the configuration files of the custom_radix theme.
+
+custom_radix.settings:
+  type: theme_settings
+  label: 'custom_radix settings'

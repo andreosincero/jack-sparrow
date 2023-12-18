@@ -1,0 +1,221 @@
+.block {
+  padding: 0 0;
+}
+
+.block--bloco-inscricao.block--letstalk {
+  padding: 30px 0;
+}
+
+.block--side-content{
+  .side-content__field-side-content{
+    .field__item {
+      .paragraph--type--side-content {
+        .side-content__text {
+          h3 {
+            font-weight: normal;
+          }
+        }
+      }
+      img {
+        max-height: inherit;
+        width: auto;
+      }
+    }
+  }
+}
+
+.nav.side-menu{
+  .nav-item{
+    flex: 100%;
+    text-align: left;
+    background-color: $gray-400;
+    margin: 10px 0;
+    font-weight: bold;
+    font-size: 18px;
+  }
+}
+
+@media (max-width:768px) {
+  .block--side-content {
+    .side-content__field-side-content {
+      .field__item {
+        .paragraph--type--side-content {
+          display: grid;
+          grid-template-columns: 1fr;
+          align-items: center;
+          justify-items: center;
+          margin-bottom: 8rem;
+          .side-content__image {
+            grid-row: 2;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: 768px) {
+  .block--side-content {
+    .side-content__field-side-content {
+      // margin-left: calc((-100vw + map-get($container-max-widths, md)) / 2);
+      // margin-right: calc((-100vw + map-get($container-max-widths, md)) / 2);
+      .field__item {
+        padding: 30px 0;
+        .paragraph--type--side-content {
+          display: grid;
+          grid-template-columns: 0.5fr 0.5fr;
+          align-items: center;
+          justify-items: center;
+          gap: 30px;
+          .side-content__text {
+            width: inherit;
+          }
+        }
+        &:nth-of-type(odd) {
+          .paragraph--type--side-content{
+            .side-content__text {
+              grid-row-start: 1;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: map-get($grid-breakpoints, lg)) {
+  .block--side-content {
+    .side-content__field-side-content {
+      // margin-left: calc((-100vw + 970px) / 2);
+      // margin-right: calc((-100vw + 970px) / 2);
+      .field__item {
+        padding: 30px 0;
+      }
+    }
+  }
+}
+
+@media (min-width: map-get($grid-breakpoints, xl)) {
+  .block--side-content{
+    .side-content__field-side-content {
+      // margin-left: calc((-100vw + map-get($container-max-widths, xl)) / 2);
+      // margin-right: calc((-100vw + map-get($container-max-widths, xl)) / 2);
+      .field__item {
+        padding: 30px 0;
+      }
+    }
+  }
+}
+
+.program__field-one-year-online-program,
+.differentials__field-floating-blocks {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  justify-content: center;
+  position: relative;
+  .field__item {
+    margin-right: 3%;
+  }
+  .paragraph--type--floating-block {
+    border: 3px solid #cfd0d1;
+    text-align: center;
+    border-radius: 10px;
+    font-size: 20px;
+    height: 350px;
+    margin-top: 25px;
+    margin-bottom: 25px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 300px;
+    background: white;
+    padding: 0 25px;
+    &:hover {
+      transform: scale(1.1);
+      box-shadow: 5px 5px 8px 0px #0000004d;
+      -webkit-transition: 0.3s all ease-in-out 0.03s;
+      -moz-transition: 0.3s all ease-in-out 0.03s;
+      -ms-transition: 0.3s all ease-in-out 0.03s;
+      -o-transition: 0.3s all ease-in-out 0.03s;
+      transition: 0.3s all ease-in-out 0.03s;
+      .floating-block__field-titulo-verde {
+        color: #f46a4e;
+        font-weight: 600;
+      }
+    }
+    .floating-block__field-titulo-verde {
+      color: #454194;
+      font-weight: 600;
+    }
+    .floating-block__field-text-content {
+      font-size: 15px;
+    }
+  }
+}
+
+.block--views-block--professors-block-professor-2{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  h2 {
+    font-size: 30px;
+    font-weight: 500;
+    font-style: normal;
+    margin: 2rem 0 3.5rem 0;
+  }
+  .block--professors-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 2rem;
+    .views-row {
+      max-width: 180px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 0 3rem;
+      .views-field-user-picture {
+        .field-content {
+          img {
+            width: auto;
+            margin-bottom: 10px;
+          }
+        }
+      }
+      .views-field-nothing {
+        .field-content {
+          font-weight: 800;
+          font-size: 18px;
+          margin-bottom: 0.2rem;
+        }
+      }
+      .views-field-field-occupation {
+        .field-content {
+          font-size: 14px;
+        }
+      }
+    }
+  }
+
+}
+
+
+
+
+@media (max-width: 768px) {
+  .program__field-one-year-online-program,
+  .differentials__field-floating-blocks {
+    flex-wrap: nowrap;
+    overflow: scroll;
+    justify-content: flex-start;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+    .field__item {
+      scroll-snap-align: center;
+    }
+  }
+}

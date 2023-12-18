@@ -1,0 +1,13 @@
+div.col-md-1 > div > a > svg {
+  fill:rgb(50,251,226);
+}
+div.col-md-1 > div > a > svg:hover {
+  fill: red;
+  fill:rgb(111,66,193);
+}
+div > div > div.views-view-responsive-grid--horizontal {
+	display: flex;
+    flex-direction: row;
+    overflow-x: auto;
+  	overflow-y: unset;
+}

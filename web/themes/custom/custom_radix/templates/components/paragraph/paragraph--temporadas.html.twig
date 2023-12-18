@@ -1,0 +1,102 @@
+{#
+/**
+ * @file
+ * Default theme implementation to display a paragraph.
+ *
+ * Available variables:
+ * - paragraph: Full paragraph entity.
+ *   Only method names starting with "get", "has", or "is" and a few common
+ *   methods such as "id", "label", and "bundle" are available. For example:
+ *   - paragraph.getCreatedTime() will return the paragraph creation timestamp.
+ *   - paragraph.id(): The paragraph ID.
+ *   - paragraph.bundle(): The type of the paragraph, for example, "image" or "text".
+ *   - paragraph.getOwnerId(): The user ID of the paragraph author.
+ *   See Drupal\paragraphs\Entity\Paragraph for a full list of public properties
+ *   and methods for the paragraph object.
+ * - content: All paragraph items. Use {{ content }} to print them all,
+ *   or print a subset such as {{ content.field_example }}. Use
+ *   {{ content|without('field_example') }} to temporarily suppress the printing
+ *   of a given child element.
+ * - attributes: HTML attributes for the containing element.
+ *   The attributes.class element may contain one or more of the following
+ *   classes:
+ *   - paragraphs: The current template type (also known as a "theming hook").
+ *   - paragraphs--type-[type]: The current paragraphs type. For example, if the paragraph is an
+ *     "Image" it would result in "paragraphs--type--image". Note that the machine
+ *     name will often be in a short form of the human readable label.
+ *   - paragraphs--view-mode--[view_mode]: The View Mode of the paragraph; for example, a
+ *     preview would result in: "paragraphs--view-mode--preview", and
+ *     default: "paragraphs--view-mode--default".
+ * - view_mode: View mode; for example, "preview" or "full".
+ * - logged_in: Flag for authenticated user status. Will be true when the
+ *   current user is a logged-in member.
+ * - is_admin: Flag for admin user status. Will be true when the current user
+ *   is an administrator.
+ *
+ * @see template_preprocess_paragraph()
+ *
+ * @ingroup themeable
+ */
+#}
+{%
+  set classes = [
+    'paragraph',
+    'paragraph--type--' ~ paragraph.bundle|clean_class,
+    view_mode ? 'paragraph--view-mode--' ~ view_mode|clean_class,
+    not paragraph.isPublished() ? 'paragraph--unpublished'
+  ]
+%}
+
+{% block paragraph %}
+  <div{{ attributes.addClass(classes) }}>
+    {% block content %}
+      <div class="accordion mb-5" id="temporadas--{{ paragraph.id() }}">
+        {% for item in paragraph.field_lista_de_temporadas %}
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="temporadas-header--{{ item.entity.id() }}">
+              <button class="accordion-button {{ loop.first ?: 'collapsed' }}" type="button" data-bs-toggle="collapse" data-bs-target="#temporadas-item--{{ item.entity.id() }}" aria-expanded="true" aria-controls="temporadas-item--{{ item.entity.id() }}">
+                {{ item.entity.field_numero_da_temporada.value }}
+              </button>
+            </h2>
+
+            <div id="temporadas-item--{{ item.entity.id() }}" class="accordion-collapse collapse {{ loop.first ? 'show' }}" aria-labelledby="temporadas-header--{{ item.entity.id() }}" data-bs-parent="#temporadas--{{ paragraph.id() }}">
+              {% for item in item.entity.field_episodio %}
+                <div class="accordion-body" style="padding: 3px var(--bs-accordion-body-padding-x);">
+                  <div class="card mb-1" style="max-width: 540px;">
+                    <div class="row g-0">
+                      <div class="col-md-3 d-flex p-2 justify-content-center">
+                        {% set image_uri = item.entity.field_thumb_do_episodio|file_uri %}
+                        {% if image_uri is not null %}
+                          <img src="{{ image_uri|image_style('thumbnail') }}"
+                        class="d-inline img-fluid rounded-start" alt="{{ item.entity.field_thumb_do_episodio.alt }}" style="max-height:72px">
+                        {% endif %}
+                      </div>
+                      <div class="col-md-7 p-2">
+                        <div class="card-body" style="display: inline-flex;justify-content: flex-start;">
+                          <p class="card-title"><b>{{ item.entity.field_numero_do_episodio.value }} </b>{{ item.entity.field_titulo_do_episodio.value }}</p>
+                          {# <p class="card-text"><small class="text-body-secondary">{{ item.entity.field_link_do_episodio.uri }}</small></p> #}
+                        </div>
+                      </div>
+                      <div class="col-md-1 p-2">
+                        <div class="card-body" style="display: inline-flex;justify-content: flex-end;">
+                          <a href="{{ item.entity.field_link_do_episodio.uri }}"><svg xmlns="http://www.w3.org/2000/svg" height="32" width="32" viewBox="0 0 512 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2023 Fonticons, Inc.--><path d="M464 256A208 208 0 1 0 48 256a208 208 0 1 0 416 0zM0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256zM188.3 147.1c7.6-4.2 16.8-4.1 24.3 .5l144 88c7.1 4.4 11.5 12.1 11.5 20.5s-4.4 16.1-11.5 20.5l-144 88c-7.4 4.5-16.7 4.7-24.3 .5s-12.3-12.2-12.3-20.9V168c0-8.7 4.7-16.7 12.3-20.9z"/></svg></a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  {#{% set description = {
+                    '#type':   'processed_text',
+                    '#text':    item.entity.field_description.value,
+                    '#format':  item.entity.field_description.format,
+                  } %}
+                  {{ description }}#}
+                </div>
+              {% endfor %}
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+      {{ content|without('field_lista_de_temporadas') }}
+    {% endblock %}
+  </div>
+{% endblock paragraph %}

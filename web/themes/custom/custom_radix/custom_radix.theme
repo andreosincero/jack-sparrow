@@ -1,0 +1,19 @@
+<?php
+
+/**
+ * @file
+ * Theme functions.
+ */
+
+// Include all files from the includes directory.
+$includes_path = dirname(__FILE__) . '/includes/*.inc';
+foreach (glob($includes_path) as $filename) {
+  require_once dirname(__FILE__) . '/includes/' . basename($filename);
+}
+
+// function custom_radix_preprocess_paragraph__temporada(&$variables) {
+//   $variables['attributes']['class'][] = 'row';
+//   $variables['attributes']['class'][] = 'row-cols-1';
+//   $variables['attributes']['class'][] = 'row-cols-md-2';
+//   $variables['attributes']['class'][] = 'g-4';
+// }
